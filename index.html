@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CliWeb - Proyecto 1</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CALCULADORA DE MATRICES</h1>
+            <h2>Lenguajes de Clientes Web - 2025B</h2>
+        </header>
+
+        <div class="controls">
+            <div class="matrix-size-control">
+                <label for="matrix-size">Tamaño de la matriz (n×n):</label>
+                <input type="number" id="matrix-size" min="2" max="10" value="2">
+                <button id="apply-size">Aplicar</button>
+            </div>
+
+            <div class="matrix-fill-options">
+                <button id="random-fill">Llenado aleatorio</button>
+                <button id="clear-matrices">Limpiar</button>
+                <button id="load-example">Matriz ejemplo</button>
+            </div>
+        </div>
+
+        <div class="matrices-container">
+            <div class="matrix-input" id="matrix-a">
+                <h3>Matriz A</h3>
+                <div class="matrix-grid" id="grid-a"></div>
+            </div>
+
+            <div class="matrix-input" id="matrix-b">
+                <h3>Matriz B</h3>
+                <div class="matrix-grid" id="grid-b"></div>
+            </div>
+        </div>
+
+        <div class="operations">
+            <h3>Operaciones</h3>
+            <div class="operation-buttons">
+                <button class="operation-btn" data-op="add">A + B</button>
+                <button class="operation-btn" data-op="subtract-ab">A - B</button>
+                <button class="operation-btn" data-op="subtract-ba">B - A</button>
+                <button class="operation-btn" data-op="multiply">A × B</button>
+                <button class="operation-btn" data-op="scalar-a">k × A</button>
+                <button class="operation-btn" data-op="scalar-b">k × B</button>
+                <button class="operation-btn" data-op="transpose-a">A<sup>T</sup></button>
+                <button class="operation-btn" data-op="transpose-b">B<sup>T</sup></button>
+                <button class="operation-btn" data-op="determinant-a">det(A)</button>
+                <button class="operation-btn" data-op="determinant-b">det(B)</button>
+                <button class="operation-btn" data-op="inverse-a">A<sup>-1</sup></button>
+                <button class="operation-btn" data-op="inverse-b">B<sup>-1</sup></button>
+                <button class="operation-btn" data-op="identity">I<sub>n</sub></button>
+            </div>
+        </div>
+
+        <div class="results-container">
+            <h3>Resultado</h3>
+            <div id="result-matrix" class="result-matrix"></div>
+            <div id="result-scalar" class="result-scalar"></div>
+            <div id="error-message" class="error-message"></div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
