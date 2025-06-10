@@ -282,8 +282,106 @@ document.addEventListener('DOMContentLoaded', function() {
         return result;
     }
 
+    function scalarMultiply(k, matrix) {
+        const result = createEmptyMatrix(matrix.length);
+        for (let i = 0; i < matrix.length; i++) {
+            for (let j = 0; j < matrix[0].length; j++) {
+                result[i][j] = k * matrix[i][j];
+            }
+        }
+        return result;
+    }
+    
+    function transposeMatrix(matrix) {
+        const result = createEmptyMatrix(matrix[0].length);
+        for (let i = 0; i < matrix.length; i++) {
+            for (let j = 0; j < matrix[0].length; j++) {
+                result[j][i] = matrix[i][j];
+            }
+        }
+        return result;
+    }
+    
+    function calculateDeterminant(matrix) {
+        if (matrix.length !== matrix[0].length) {
+            throw new Error('La matriz debe ser cuadrada para calcular el determinante');
+        }
+        
+        // Caso base para matriz 2x2
+        if (matrix.length === 2) {
+            return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+        }
+        
+        let det = 0;
+        // Expansión por cofactores a lo largo de la primera fila
+        for (let j = 0; j < matrix.length; j++) {
+            const minor = getMinor(matrix, 0, j);
+            det += matrix[0][j] * Math.pow(-1, j) * calculateDeterminant(minor);
+        }
+        
+        return parseFloat(det.toFixed(4));
+    }
+    
+    function getMinor(matrix, row, col) {
+        return matrix.filter((_, i) => i !== row)
+                    .map(row => row.filter((_, j) => j !== col));
+    }
+    
+    function inverseMatrix(matrix) {
+        const det = calculateDeterminant(matrix);
+        if (det === 0) return null;
+        
+        // Para matrices 2x2
+        if (matrix.length === 2) {
+            const a = matrix[0][0], b = matrix[0][1];
+            const c = matrix[1][0], d = matrix[1][1];
+            
+            const inverse = [
+                [d / det, -b / det],
+                [-c / det, a / det]
+            ];
+            return inverse.map(row => row.map(val => parseFloat(val.toFixed(4))));
+        }
+        
+        // Para matrices más grandes (método de Gauss-Jordan)
+        const n = matrix.length;
+        const augmented = matrix.map((row, i) => 
+            [...row, ...Array(n).fill(0).map((_, j) => i === j ? 1 : 0)]
+        );
+        
+        // Eliminación gaussiana
+        for (let i = 0; i < n; i++) {
+            const diagVal = augmented[i][i];
+            for (let j = 0; j < 2 * n; j++) {
+                augmented[i][j] /= diagVal;
+            }
+            
+            for (let k = 0; k < n; k++) {
+                if (k !== i) {
+                    const factor = augmented[k][i];
+                    for (let j = 0; j < 2 * n; j++) {
+                        augmented[k][j] -= factor * augmented[i][j];
+                    }
+                }
+            }
+        }
+        
+        // Extraer la parte derecha (inversa)
+        const inverse = augmented.map(row => row.slice(n).map(val => parseFloat(val.toFixed(4))));
+        return inverse;
+    }
+    
+    function createIdentityMatrix(size) {
+        const matrix = createEmptyMatrix(size);
+        for (let i = 0; i < size; i++) {
+            matrix[i][i] = 1;
+        }
+        return matrix;
+    }
+
     function displayMatrixResult(matrix, label) {
         resultMatrix.innerHTML = `<p><strong>${label}</strong></p>`;
+        resultMatrix.style.display='grid';
         resultMatrix.style.gridTemplateColumns = `repeat(${matrix.length}, 1fr)`;
         
         for (let i = 0; i < matrix.length; i++) {
