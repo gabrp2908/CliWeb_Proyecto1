@@ -1,21 +1,206 @@
-body {
-    font-family: 'Comic', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    color: #333;
-    background-color: #DEBDFF;
+/*Colores base*/
+:root {
+    --morado-oscuro: #4A148C;
+    --morado: #7B1FA2;
+    --morado-claro: #DEBDFF;
+    --morado-clarito: #f3e8ff;
+    --blanco: #FFFFFF;
+    --error: #D32F2F;
 }
 
+/* Reset mínimo VOLVER AQUI*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Comic', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--morado-clarito);
+    padding: 20px;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--blanco);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Encabezado */
 header {
-    background-color: #710085;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--morado-claro);
+}
+
+header h1 {
+    color: var(--morado-oscuro);
+    margin-bottom: 20px;
+    font-size: 36px;
+    letter-spacing: 3px;
+}
+
+header h2 {
+    color: var(--morado-oscuro);
+    margin-bottom: 20px;
+    font-weight: 200;
+    font-size: 100%;
+}
+
+/* Controles */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.matrix-size-control, .matrix-fill-options {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.matrix-size-control input {
+    width: 60px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+/* Botones */
+button {
+    padding: 8px 15px;
+    background-color: var(--morado);
     color: white;
-    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--morado-oscuro);
+}
+
+/* Matrices */
+.matrix-container {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.matrix-container h3{
+    color: var(--morado-oscuro);
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.matrix-input {
+    flex: 1;
+    min-width: 300px;
+    padding: 15px;
+    background-color: var(--morado-claro);
+    border-radius: 8px;
+}
+
+.matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.matrix-grid input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     text-align: center;
 }
 
-main {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+/* Operaciones */
+.operations {
+    margin-bottom: 20px;
+}
+
+.operation-buttons {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.operation-buttons button:last-child {
+    grid-column: 2 / span 2; 
+    justify-self: center;     
+    width: 250px;
+}
+
+.operation-row {
+    grid-column: 1 / -1; 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+/* Resultados */
+.results-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: var(--morado-claro);
+    border-radius: 8px;
+}
+
+.results-container h3{
+    color: var(--morado-oscuro);
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.result-matrix {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.result-matrix div {
+    padding: 8px;
+    background-color: var(--blanco);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.error-message {
+    color: var(--error);
+    margin-top: 10px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .matrix-container {
+        flex-direction: column;
+    }
+    
+    .operation-buttons, .operation-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .operation-buttons, .operation-row {
+        grid-template-columns: 1fr;
+    }
 }
