@@ -8,12 +8,11 @@
     --error: #D32F2F;
 }
 
-/* Reset mínimo VOLVER AQUI*/
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Comic', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -48,16 +47,16 @@ header h1 {
 header h2 {
     color: var(--morado-oscuro);
     margin-bottom: 20px;
-    font-weight: 200;
-    font-size: 100%;
+    font-weight: 400;
+    font-size: 18px;
 }
 
 h3{
     color: var(--morado-oscuro);
     text-align: center;
     margin-bottom: 20px;
-    font-weight: 600;
-    font-size: 1.2rem;
+    font-weight: 700;
+    font-size: 1.3rem;
 }
 
 /* Controles */
@@ -84,6 +83,7 @@ h3{
 
 /* Botones */
 button {
+    font-weight: 600;
     padding: 8px 15px;
     background-color: var(--morado);
     color: white;
@@ -208,3 +208,12 @@ button:hover {
         font-size: 0.85rem;
     }
 }
+
+footer{
+    text-align: right;
+    font-size: 10px;
+    margin-top: 20px;
+    margin-right: 30px;
+    color: var(--morado-oscuro)
+}
+
