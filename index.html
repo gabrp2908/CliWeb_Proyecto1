@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <div class="matrices-container">
+        <div class="matrix-container">
             <div class="matrix-input" id="matrix-a">
                 <h3>Matriz A</h3>
                 <div class="matrix-grid" id="grid-a"></div>
@@ -42,18 +42,22 @@
         <div class="operations">
             <h3>Operaciones</h3>
             <div class="operation-buttons">
+                <!--Primera fila-->
                 <button class="operation-btn" data-op="add">A + B</button>
-                <button class="operation-btn" data-op="subtract-ab">A - B</button>
-                <button class="operation-btn" data-op="subtract-ba">B - A</button>
                 <button class="operation-btn" data-op="multiply">A × B</button>
-                <button class="operation-btn" data-op="scalar-a">k × A</button>
-                <button class="operation-btn" data-op="scalar-b">k × B</button>
                 <button class="operation-btn" data-op="transpose-a">A<sup>T</sup></button>
                 <button class="operation-btn" data-op="transpose-b">B<sup>T</sup></button>
-                <button class="operation-btn" data-op="determinant-a">det(A)</button>
-                <button class="operation-btn" data-op="determinant-b">det(B)</button>
+                <!--Segunda fila-->
+                <button class="operation-btn" data-op="subtract-ab">A - B</button>
+                <button class="operation-btn" data-op="scalar-a">k × A</button>
                 <button class="operation-btn" data-op="inverse-a">A<sup>-1</sup></button>
                 <button class="operation-btn" data-op="inverse-b">B<sup>-1</sup></button>
+                <!--Tercera fila-->
+                <button class="operation-btn" data-op="subtract-ba">B - A</button>
+                <button class="operation-btn" data-op="scalar-b">k × B</button>
+                <button class="operation-btn" data-op="determinant-a">det(A)</button>
+                <button class="operation-btn" data-op="determinant-b">det(B)</button>
+                <!--Individual-->
                 <button class="operation-btn" data-op="identity">I<sub>n</sub></button>
             </div>
         </div>
