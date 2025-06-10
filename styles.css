@@ -52,6 +52,14 @@ header h2 {
     font-size: 100%;
 }
 
+h3{
+    color: var(--morado-oscuro);
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
 /* Controles */
 .controls {
     display: flex;
@@ -96,14 +104,6 @@ button:hover {
     flex-wrap: wrap;
 }
 
-.matrix-container h3{
-    color: var(--morado-oscuro);
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: 600;
-    font-size: 1.2rem;
-}
-
 .matrix-input {
     flex: 1;
     min-width: 300px;
@@ -130,13 +130,16 @@ button:hover {
 /* Operaciones */
 .operations {
     margin-bottom: 20px;
+    background-color: var(--morado-claro);
+    border-radius: 8px;
+    padding: 20px;
 }
 
 .operation-buttons {
     display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 10px;
-    margin-top: 10px;
+    grid-template-columns: repeat(4, minmax(80px, 1fr));
+    gap: 12px;
+    padding: 15px;
 }
 
 .operation-buttons button:last-child {
@@ -158,14 +161,6 @@ button:hover {
     padding: 15px;
     background-color: var(--morado-claro);
     border-radius: 8px;
-}
-
-.results-container h3{
-    color: var(--morado-oscuro);
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: 600;
-    font-size: 1.2rem;
 }
 
 .result-matrix {
@@ -193,14 +188,23 @@ button:hover {
     .matrix-container {
         flex-direction: column;
     }
+    .operation-buttons {
+        grid-template-columns: repeat(3, minmax(80px, 1fr)); /* 3 columnas en tablet */
+    }
     
-    .operation-buttons, .operation-row {
-        grid-template-columns: repeat(2, 1fr);
+    .operation-buttons button:last-child {
+        grid-column: 1 / -1; /* Ocupa todo el ancho */
+        width: 50%; /* Ancho relativo */
     }
 }
 
 @media (max-width: 480px) {
-    .operation-buttons, .operation-row {
-        grid-template-columns: 1fr;
+    .operation-buttons {
+        grid-template-columns: repeat(2, minmax(80px, 1fr)); /* 2 columnas en móvil */
+    }
+    
+    .operation-buttons button {
+        padding: 6px 8px;
+        font-size: 0.85rem;
     }
 }
