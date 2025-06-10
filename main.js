@@ -82,6 +82,69 @@ document.addEventListener('DOMContentLoaded', function() {
     function createEmptyMatrix(size) {
         return Array(size).fill().map(() => Array(size).fill(0));
     }
+   
+    function fillMatricesRandomly() {
+        const inputsA = matrixAGrid.querySelectorAll('input');
+        const inputsB = matrixBGrid.querySelectorAll('input');
+        
+        inputsA.forEach(input => {
+            const value = Math.floor(Math.random() * 21) - 10; // -10 a 10
+            input.value = value;
+            matrixA[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = value;
+        });
+        
+        inputsB.forEach(input => {
+            const value = Math.floor(Math.random() * 21) - 10; // -10 a 10
+            input.value = value;
+            matrixB[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = value;
+        });
+        
+        clearResults();
+    }
+    
+    function clearMatrices() {
+        const inputsA = matrixAGrid.querySelectorAll('input');
+        const inputsB = matrixBGrid.querySelectorAll('input');
+        
+        inputsA.forEach(input => {
+            input.value = '0';
+            matrixA[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = 0;
+        });
+        
+        inputsB.forEach(input => {
+            input.value = '0';
+            matrixB[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = 0;
+        });
+        
+        clearResults();
+    }
+    
+    function loadExample() {
+        // Ejemplo de matrices 2x2
+        if (matrixSize === 2) {
+            const exampleA = [[1, 2], [3, 4]];
+            const exampleB = [[5, 6], [7, 8]];
+            
+            const inputsA = matrixAGrid.querySelectorAll('input');
+            const inputsB = matrixBGrid.querySelectorAll('input');
+            
+            inputsA.forEach((input, index) => {
+                const row = Math.floor(index / matrixSize);
+                const col = index % matrixSize;
+                input.value = exampleA[row][col];
+                matrixA[row][col] = exampleA[row][col];
+            });
+            
+            inputsB.forEach((input, index) => {
+                const row = Math.floor(index / matrixSize);
+                const col = index % matrixSize;
+                input.value = exampleB[row][col];
+                matrixB[row][col] = exampleB[row][col];
+            });
+        } else {
+            showError('El ejemplo está configurado solo para matrices 2x2. Cambia el tamaño a 2 para verlo.');
+        }
+    }
 
     
 });
