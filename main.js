@@ -475,4 +475,8 @@ document.addEventListener('DOMContentLoaded', function() {
         errorMessage.textContent = message;
     }
     
+    const victorButton = document.getElementById('victor-button');
+    victorButton.addEventListener('click', () => {
+        window.open('https://www.instagram.com/rrss.learning.uru?igsh=bm05cTF1NTZ1azdj', '_blank');
+    });
 });
