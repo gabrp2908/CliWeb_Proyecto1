@@ -8,6 +8,7 @@
     --error: #D32F2F;
 }
 
+/*Estilos base para todos los elementos*/
 * {
     box-sizing: border-box;
     margin: 0;
@@ -192,6 +193,7 @@ button:hover {
     width: 250px;
 }
 
+/*Mensajes de error*/
 .error-message {
     color: var(--error);
     margin-top: 10px;
@@ -200,6 +202,16 @@ button:hover {
     font-weight: bolder;
 }
 
+/*Pie de pagina*/
+footer{
+    text-align: right;
+    font-size: 10px;
+    margin-top: 20px;
+    margin-right: 120px;
+    color: var(--morado-oscuro)
+}
+
+/*Diseño responsivo*/
 @media (max-width: 768px) {
     .matrix-container {
         flex-direction: column;
@@ -223,12 +235,4 @@ button:hover {
         padding: 6px 8px;
         font-size: 0.85rem;
     }
-}
-
-footer{
-    text-align: right;
-    font-size: 10px;
-    margin-top: 20px;
-    margin-right: 120px;
-    color: var(--morado-oscuro)
 }

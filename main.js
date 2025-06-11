@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let matrixA = [];
     let matrixB = [];
     
-    // Elementos del DOM
+    // Selectores del DOM
     const sizeInput = document.getElementById('matrix-size');
     const applySizeBtn = document.getElementById('apply-size');
     const randomFillBtn = document.getElementById('random-fill');
@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    //Asignación de eventos a botones
     randomFillBtn.addEventListener('click', fillMatricesRandomly);
     clearBtn.addEventListener('click', clearMatrices);
     exampleBtn.addEventListener('click', loadExample);
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    //Inicialización de cuadriculas de matrices
     function initMatrixGrids() {
         matrixAGrid.innerHTML = '';
         matrixBGrid.innerHTML = '';
@@ -48,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         matrixA = createEmptyMatrix(matrixSize);
         matrixB = createEmptyMatrix(matrixSize);
         
+        //Creación de inputs para las celdas de las matrices
         for (let i = 0; i < matrixSize; i++) {
             for (let j = 0; j < matrixSize; j++) {
                 // Matriz A
@@ -79,20 +82,24 @@ document.addEventListener('DOMContentLoaded', function() {
         matrixBGrid.style.gridTemplateColumns = `repeat(${matrixSize}, 1fr)`;
     }
 
+    //Matriz vacia para especificar tamaño
     function createEmptyMatrix(size) {
         return Array(size).fill().map(() => Array(size).fill(0));
     }
    
+    //Llenado aleatorio de matrices
     function fillMatricesRandomly() {
         const inputsA = matrixAGrid.querySelectorAll('input');
         const inputsB = matrixBGrid.querySelectorAll('input');
         
+        //Matriz A
         inputsA.forEach(input => {
             const value = Math.floor(Math.random() * 21) - 10; // -10 a 10
             input.value = value;
             matrixA[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = value;
         });
         
+        //Matriz B
         inputsB.forEach(input => {
             const value = Math.floor(Math.random() * 21) - 10; // -10 a 10
             input.value = value;
@@ -102,15 +109,18 @@ document.addEventListener('DOMContentLoaded', function() {
         clearResults();
     }
     
+    //Limpieza de matrices
     function clearMatrices() {
         const inputsA = matrixAGrid.querySelectorAll('input');
         const inputsB = matrixBGrid.querySelectorAll('input');
         
+        //Matriz A
         inputsA.forEach(input => {
             input.value = '0';
             matrixA[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = 0;
         });
         
+        //MatrizB
         inputsB.forEach(input => {
             input.value = '0';
             matrixB[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = 0;
@@ -119,25 +129,22 @@ document.addEventListener('DOMContentLoaded', function() {
         clearResults();
     }
     
+    //Creación de matrices de ejemplo
     function loadExample() {
-        // Crear matrices de ejemplo para cualquier tamaño
         const exampleA = createEmptyMatrix(matrixSize);
         const exampleB = createEmptyMatrix(matrixSize);
         
-        // Llenar las matrices con valores de ejemplo
         for (let i = 0; i < matrixSize; i++) {
             for (let j = 0; j < matrixSize; j++) {
-                // Patrón simple: A[i][j] = i*matrixSize + j + 1
                 exampleA[i][j] = i * matrixSize + j + 1;
-                // Patrón alternativo para B: A[i][j] * 2
                 exampleB[i][j] = (i * matrixSize + j + 1) * 2;
             }
         }
         
-        // Actualizar los inputs y las matrices en memoria
         const inputsA = matrixAGrid.querySelectorAll('input');
         const inputsB = matrixBGrid.querySelectorAll('input');
         
+        //Matriz A
         inputsA.forEach((input, index) => {
             const row = Math.floor(index / matrixSize);
             const col = index % matrixSize;
@@ -145,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
             matrixA[row][col] = exampleA[row][col];
         });
         
+        //Matriz B
         inputsB.forEach((input, index) => {
             const row = Math.floor(index / matrixSize);
             const col = index % matrixSize;
@@ -155,6 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
         clearResults();
     }
 
+    //Operaciones Matriciales
     function executeOperation(operation) {
         clearResults();
         
@@ -222,7 +231,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     result = inverseMatrix(matrixA);
                     if (result) {
                         displayMatrixResult(result, 'A<sup>-1</sup> =');
-                        // Mostrar verificación
                         const verification = multiplyMatrices(matrixA, result);
                         displayVerificationMatrix(verification, 'Verificación (A × A<sup>-1</sup> = I):');
                     } else {
@@ -233,7 +241,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     result = inverseMatrix(matrixB);
                     if (result) {
                         displayMatrixResult(result, 'B<sup>-1</sup> =');
-                        // Mostrar verificación
                         const verification = multiplyMatrices(matrixB, result);
                         displayVerificationMatrix(verification, 'Verificación (B × B<sup>-1</sup> = I):');
                     } else {
@@ -250,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    //Operaciones
+    //Suma
     function addMatrices(a, b) {
         if (a.length !== b.length || a[0].length !== b[0].length) {
             throw new Error('Las matrices deben tener las mismas dimensiones para sumarse');
@@ -265,6 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return result;
     }
     
+    //Resta
     function subtractMatrices(a, b) {
         if (a.length !== b.length || a[0].length !== b[0].length) {
             throw new Error('Las matrices deben tener las mismas dimensiones para restarse');
@@ -279,6 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return result;
     }
     
+    //Multiplicación
     function multiplyMatrices(a, b) {
         if (a[0].length !== b.length) {
             throw new Error('El número de columnas de A debe coincidir con el número de filas de B');
@@ -297,6 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return result;
     }
 
+    //Multiplicación por escalar
     function scalarMultiply(k, matrix) {
         const result = createEmptyMatrix(matrix.length);
         for (let i = 0; i < matrix.length; i++) {
@@ -307,6 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return result;
     }
     
+    //Matriz Transpuesta
     function transposeMatrix(matrix) {
         const result = createEmptyMatrix(matrix[0].length);
         for (let i = 0; i < matrix.length; i++) {
@@ -317,6 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return result;
     }
     
+    //Determinante
     function calculateDeterminant(matrix) {
         if (matrix.length !== matrix[0].length) {
             throw new Error('La matriz debe ser cuadrada para calcular el determinante');
@@ -342,6 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     .map(row => row.filter((_, j) => j !== col));
     }
     
+    //Matriz inversa
     function inverseMatrix(matrix) {
         const det = calculateDeterminant(matrix);
         if (det === 0) return null;
@@ -386,6 +399,16 @@ document.addEventListener('DOMContentLoaded', function() {
         return inverse;
     }
 
+    //Matriz Identidad
+    function createIdentityMatrix(size) {
+        const matrix = createEmptyMatrix(size);
+        for (let i = 0; i < size; i++) {
+            matrix[i][i] = 1;
+        }
+        return matrix;
+    }
+
+    //Visualización de Matriz de Verificación
     function displayVerificationMatrix(matrix, label) {
         const verificationDiv = document.createElement('div');
         verificationDiv.className = 'verification-matrix';
@@ -411,15 +434,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         resultMatrix.appendChild(verificationDiv);
     }
-    
-    function createIdentityMatrix(size) {
-        const matrix = createEmptyMatrix(size);
-        for (let i = 0; i < size; i++) {
-            matrix[i][i] = 1;
-        }
-        return matrix;
-    }
 
+    //Visualización de Matriz Resultante
     function displayMatrixResult(matrix, label, isIdentity = false) {
         resultMatrix.innerHTML = `<p><strong>${label}</strong></p>`;
         resultMatrix.style.display='grid';
@@ -442,16 +458,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    //Visualización de resultado Escalar
     function displayScalarResult(value, label) {
         resultScalar.innerHTML = `<p><strong>${label}</strong> ${value}</p>`;
     }
 
+    //Limpieza de sección de resultados
     function clearResults() {
         resultMatrix.innerHTML = '';
         resultScalar.innerHTML = '';
         errorMessage.textContent = '';
     }
     
+    //Mensajes de error
     function showError(message) {
         errorMessage.textContent = message;
     }
