@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     break;
                 case 'identity':
                     result = createIdentityMatrix(matrixSize);
-                    displayMatrixResult(result, 'I<sub>n</sub> =');
+                    displayMatrixResult(result, 'I<sub>n</sub> =', true);
                     break;
             }
         } catch (error) {
@@ -397,14 +397,20 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let i = 0; i < matrix.length; i++) {
             for (let j = 0; j < matrix[0].length; j++) {
                 const cell = document.createElement('div');
-                // Redondear para mostrar mejor la matriz identidad
-                cell.textContent = parseFloat(matrix[i][j].toFixed(4));
+                cell.textContent = i === j ? '1' : '0';
+                
+                // Resaltar la diagonal
+                if (i === j) {
+                    cell.style.backgroundColor = '#DEBDFF';
+                    cell.style.fontWeight = 'bold';
+                }
+                
                 verificationDiv.appendChild(cell);
             }
         }
         
         resultMatrix.appendChild(verificationDiv);
-    }  
+    }
     
     function createIdentityMatrix(size) {
         const matrix = createEmptyMatrix(size);
@@ -414,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return matrix;
     }
 
-    function displayMatrixResult(matrix, label) {
+    function displayMatrixResult(matrix, label, isIdentity = false) {
         resultMatrix.innerHTML = `<p><strong>${label}</strong></p>`;
         resultMatrix.style.display='grid';
         resultMatrix.style.gridTemplateColumns = `repeat(${matrix.length}, 1fr)`;
@@ -423,6 +429,14 @@ document.addEventListener('DOMContentLoaded', function() {
             for (let j = 0; j < matrix[0].length; j++) {
                 const cell = document.createElement('div');
                 cell.textContent = matrix[i][j];
+                
+                // Si es matriz identidad y el elemento está en la diagonal
+                if (isIdentity && i === j) {
+                    cell.style.backgroundColor = '#f3e8ff';
+                    cell.style.borderColor = '#4A148C'
+                    cell.style.fontWeight = 'bold';
+                }
+                
                 resultMatrix.appendChild(cell);
             }
         }
