@@ -120,30 +120,39 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function loadExample() {
-        // Ejemplo de matrices 2x2
-        if (matrixSize === 2) {
-            const exampleA = [[1, 2], [3, 4]];
-            const exampleB = [[5, 6], [7, 8]];
-            
-            const inputsA = matrixAGrid.querySelectorAll('input');
-            const inputsB = matrixBGrid.querySelectorAll('input');
-            
-            inputsA.forEach((input, index) => {
-                const row = Math.floor(index / matrixSize);
-                const col = index % matrixSize;
-                input.value = exampleA[row][col];
-                matrixA[row][col] = exampleA[row][col];
-            });
-            
-            inputsB.forEach((input, index) => {
-                const row = Math.floor(index / matrixSize);
-                const col = index % matrixSize;
-                input.value = exampleB[row][col];
-                matrixB[row][col] = exampleB[row][col];
-            });
-        } else {
-            showError('El ejemplo está configurado solo para matrices 2x2. Cambia el tamaño a 2 para verlo.');
+        // Crear matrices de ejemplo para cualquier tamaño
+        const exampleA = createEmptyMatrix(matrixSize);
+        const exampleB = createEmptyMatrix(matrixSize);
+        
+        // Llenar las matrices con valores de ejemplo
+        for (let i = 0; i < matrixSize; i++) {
+            for (let j = 0; j < matrixSize; j++) {
+                // Patrón simple: A[i][j] = i*matrixSize + j + 1
+                exampleA[i][j] = i * matrixSize + j + 1;
+                // Patrón alternativo para B: A[i][j] * 2
+                exampleB[i][j] = (i * matrixSize + j + 1) * 2;
+            }
         }
+        
+        // Actualizar los inputs y las matrices en memoria
+        const inputsA = matrixAGrid.querySelectorAll('input');
+        const inputsB = matrixBGrid.querySelectorAll('input');
+        
+        inputsA.forEach((input, index) => {
+            const row = Math.floor(index / matrixSize);
+            const col = index % matrixSize;
+            input.value = exampleA[row][col];
+            matrixA[row][col] = exampleA[row][col];
+        });
+        
+        inputsB.forEach((input, index) => {
+            const row = Math.floor(index / matrixSize);
+            const col = index % matrixSize;
+            input.value = exampleB[row][col];
+            matrixB[row][col] = exampleB[row][col];
+        });
+        
+        clearResults();
     }
 
     function executeOperation(operation) {

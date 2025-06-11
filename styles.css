@@ -165,11 +165,9 @@ button:hover {
     text-align: center;
 }
 
-/* Resultados */
 .result-matrix {
     display: grid;
     gap: 8px;
-    margin-top: 10px;
 }
 
 .result-matrix p {
@@ -184,6 +182,14 @@ button:hover {
     border: 1px solid #ddd;
     border-radius: 5px;
     text-align: center;
+}
+
+.verification-matrix {
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    justify-self: center;
+    width: 250px;
 }
 
 .error-message {
@@ -225,12 +231,4 @@ footer{
     margin-top: 20px;
     margin-right: 120px;
     color: var(--morado-oscuro)
-}
-
-.verification-matrix {
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-    justify-self: center;
-    width: 250px;
 }
