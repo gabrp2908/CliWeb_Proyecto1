@@ -213,6 +213,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     result = inverseMatrix(matrixA);
                     if (result) {
                         displayMatrixResult(result, 'A<sup>-1</sup> =');
+                        // Mostrar verificación
+                        const verification = multiplyMatrices(matrixA, result);
+                        displayVerificationMatrix(verification, 'Verificación (A × A<sup>-1</sup> = I):');
                     } else {
                         showError('La matriz A no tiene inversa (determinante = 0)');
                     }
@@ -221,6 +224,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     result = inverseMatrix(matrixB);
                     if (result) {
                         displayMatrixResult(result, 'B<sup>-1</sup> =');
+                        // Mostrar verificación
+                        const verification = multiplyMatrices(matrixB, result);
+                        displayVerificationMatrix(verification, 'Verificación (B × B<sup>-1</sup> = I):');
                     } else {
                         showError('La matriz B no tiene inversa (determinante = 0)');
                     }
@@ -370,6 +376,26 @@ document.addEventListener('DOMContentLoaded', function() {
         const inverse = augmented.map(row => row.slice(n).map(val => parseFloat(val.toFixed(4))));
         return inverse;
     }
+
+    function displayVerificationMatrix(matrix, label) {
+        const verificationDiv = document.createElement('div');
+        verificationDiv.className = 'verification-matrix';
+        verificationDiv.innerHTML = `<p><strong>${label}</strong></p>`;
+        verificationDiv.style.display = 'grid';
+        verificationDiv.style.gridTemplateColumns = `repeat(${matrix.length}, 1fr)`;
+        verificationDiv.style.marginTop = '20px';
+        
+        for (let i = 0; i < matrix.length; i++) {
+            for (let j = 0; j < matrix[0].length; j++) {
+                const cell = document.createElement('div');
+                // Redondear para mostrar mejor la matriz identidad
+                cell.textContent = parseFloat(matrix[i][j].toFixed(4));
+                verificationDiv.appendChild(cell);
+            }
+        }
+        
+        resultMatrix.appendChild(verificationDiv);
+    }  
     
     function createIdentityMatrix(size) {
         const matrix = createEmptyMatrix(size);
@@ -387,7 +413,7 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let i = 0; i < matrix.length; i++) {
             for (let j = 0; j < matrix[0].length; j++) {
                 const cell = document.createElement('div');
-                cell.textContent = matrix[i][j].toFixed(4);
+                cell.textContent = matrix[i][j];
                 resultMatrix.appendChild(cell);
             }
         }

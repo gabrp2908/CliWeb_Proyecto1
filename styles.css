@@ -184,7 +184,6 @@ button:hover {
     border: 1px solid #ddd;
     border-radius: 5px;
     text-align: center;
-    min-width: 50px; 
 }
 
 .error-message {
@@ -228,3 +227,10 @@ footer{
     color: var(--morado-oscuro)
 }
 
+.verification-matrix {
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    justify-self: center;
+    width: 250px;
+}
