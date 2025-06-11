@@ -403,4 +403,8 @@ document.addEventListener('DOMContentLoaded', function() {
         errorMessage.textContent = '';
     }
     
+    function showError(message) {
+        errorMessage.textContent = message;
+    }
+    
 });

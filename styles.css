@@ -161,13 +161,21 @@ button:hover {
     padding: 15px;
     background-color: var(--morado-claro);
     border-radius: 8px;
+    color: var(--morado-oscuro);
+    text-align: center;
 }
 
+/* Resultados */
 .result-matrix {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
     gap: 8px;
     margin-top: 10px;
+}
+
+.result-matrix p {
+    grid-column: 1 / -1; 
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .result-matrix div {
@@ -176,12 +184,15 @@ button:hover {
     border: 1px solid #ddd;
     border-radius: 5px;
     text-align: center;
+    min-width: 50px; 
 }
 
 .error-message {
     color: var(--error);
     margin-top: 10px;
+    margin-bottom: 10px;
     text-align: center;
+    font-weight: bolder;
 }
 
 @media (max-width: 768px) {
@@ -213,7 +224,7 @@ footer{
     text-align: right;
     font-size: 10px;
     margin-top: 20px;
-    margin-right: 30px;
+    margin-right: 120px;
     color: var(--morado-oscuro)
 }
 
