@@ -89,48 +89,55 @@ document.addEventListener('DOMContentLoaded', function() {
    
     //Llenado aleatorio de matrices
     function fillMatricesRandomly() {
-        const inputsA = matrixAGrid.querySelectorAll('input');
-        const inputsB = matrixBGrid.querySelectorAll('input');
-        
-        //Matriz A
-        inputsA.forEach(input => {
-            const value = Math.floor(Math.random() * 21) - 10; // -10 a 10
-            input.value = value;
-            matrixA[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = value;
-        });
-        
-        //Matriz B
-        inputsB.forEach(input => {
-            const value = Math.floor(Math.random() * 21) - 10; // -10 a 10
-            input.value = value;
-            matrixB[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = value;
-        });
-        
+        const selectedMatrix = document.querySelector('input[name="selected-matrix"]:checked').value;
         clearResults();
+
+        if (selectedMatrix === 'a' || selectedMatrix === 'both') {
+            const inputsA = matrixAGrid.querySelectorAll('input');
+            inputsA.forEach(input => {
+                const value = Math.floor(Math.random() * 21) - 10; // -10 a 10
+                input.value = value;
+                matrixA[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = value;
+            });
+        }
+
+        if (selectedMatrix === 'b' || selectedMatrix === 'both') {
+            const inputsB = matrixBGrid.querySelectorAll('input');
+            inputsB.forEach(input => {
+                const value = Math.floor(Math.random() * 21) - 10; // -10 a 10
+                input.value = value;
+                matrixB[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = value;
+            });
+        }
     }
-    
+
     //Limpieza de matrices
     function clearMatrices() {
-        const inputsA = matrixAGrid.querySelectorAll('input');
-        const inputsB = matrixBGrid.querySelectorAll('input');
-        
-        //Matriz A
-        inputsA.forEach(input => {
-            input.value = '0';
-            matrixA[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = 0;
-        });
-        
-        //MatrizB
-        inputsB.forEach(input => {
-            input.value = '0';
-            matrixB[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = 0;
-        });
-        
+        const selectedMatrix = document.querySelector('input[name="selected-matrix"]:checked').value;
         clearResults();
+
+        if (selectedMatrix === 'a' || selectedMatrix === 'both') {
+            const inputsA = matrixAGrid.querySelectorAll('input');
+            inputsA.forEach(input => {
+                input.value = '0';
+                matrixA[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = 0;
+            });
+        }
+
+        if (selectedMatrix === 'b' || selectedMatrix === 'both') {
+            const inputsB = matrixBGrid.querySelectorAll('input');
+            inputsB.forEach(input => {
+                input.value = '0';
+                matrixB[parseInt(input.dataset.row)][parseInt(input.dataset.col)] = 0;
+            });
+        }
     }
     
     //Creación de matrices de ejemplo
     function loadExample() {
+        const selectedMatrix = document.querySelector('input[name="selected-matrix"]:checked').value;
+        clearResults();
+
         const exampleA = createEmptyMatrix(matrixSize);
         const exampleB = createEmptyMatrix(matrixSize);
         
@@ -140,27 +147,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 exampleB[i][j] = (i * matrixSize + j + 1) * 2;
             }
         }
-        
-        const inputsA = matrixAGrid.querySelectorAll('input');
-        const inputsB = matrixBGrid.querySelectorAll('input');
-        
-        //Matriz A
-        inputsA.forEach((input, index) => {
-            const row = Math.floor(index / matrixSize);
-            const col = index % matrixSize;
-            input.value = exampleA[row][col];
-            matrixA[row][col] = exampleA[row][col];
-        });
-        
-        //Matriz B
-        inputsB.forEach((input, index) => {
-            const row = Math.floor(index / matrixSize);
-            const col = index % matrixSize;
-            input.value = exampleB[row][col];
-            matrixB[row][col] = exampleB[row][col];
-        });
-        
-        clearResults();
+
+        if (selectedMatrix === 'a' || selectedMatrix === 'both') {
+            const inputsA = matrixAGrid.querySelectorAll('input');
+            inputsA.forEach((input, index) => {
+                const row = Math.floor(index / matrixSize);
+                const col = index % matrixSize;
+                input.value = exampleA[row][col];
+                matrixA[row][col] = exampleA[row][col];
+            });
+        }
+
+        if (selectedMatrix === 'b' || selectedMatrix === 'both') {
+            const inputsB = matrixBGrid.querySelectorAll('input');
+            inputsB.forEach((input, index) => {
+                const row = Math.floor(index / matrixSize);
+                const col = index % matrixSize;
+                input.value = exampleB[row][col];
+                matrixB[row][col] = exampleB[row][col];
+            });
+        }
     }
 
     //Operaciones Matriciales
@@ -437,25 +443,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //Visualización de Matriz Resultante
     function displayMatrixResult(matrix, label, isIdentity = false) {
-        resultMatrix.innerHTML = `<p><strong>${label}</strong></p>`;
-        resultMatrix.style.display='grid';
-        resultMatrix.style.gridTemplateColumns = `repeat(${matrix.length}, 1fr)`;
+        const container = document.createElement('div');
+        container.innerHTML = `<p><strong>${label}</strong></p>`;
+        container.style.display = 'inline-grid';
+        container.style.gridTemplateColumns = `repeat(${matrix.length}, 1fr)`;
+        container.style.margin = '10px 0';
         
         for (let i = 0; i < matrix.length; i++) {
             for (let j = 0; j < matrix[0].length; j++) {
                 const cell = document.createElement('div');
                 cell.textContent = matrix[i][j];
                 
-                // Si es matriz identidad y el elemento está en la diagonal
                 if (isIdentity && i === j) {
                     cell.style.backgroundColor = '#f3e8ff';
-                    cell.style.borderColor = '#4A148C'
+                    cell.style.borderColor = '#4A148C';
                     cell.style.fontWeight = 'bold';
                 }
                 
-                resultMatrix.appendChild(cell);
+                container.appendChild(cell);
             }
         }
+        
+        resultMatrix.innerHTML = '';
+        resultMatrix.appendChild(container);
     }
 
     //Visualización de resultado Escalar

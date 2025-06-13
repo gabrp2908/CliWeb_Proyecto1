@@ -167,8 +167,11 @@ button:hover {
 }
 
 .result-matrix {
-    display: grid;
-    gap: 8px;
+    display: inline-grid;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 0 auto;
 }
 
 .result-matrix p {
@@ -180,17 +183,23 @@ button:hover {
 .result-matrix div {
     padding: 8px;
     background-color: var(--blanco);
-    border: 1px solid #ddd;
+    border: 1px solid var(--morado);
     border-radius: 5px;
     text-align: center;
+    min-width: 40px;
+    padding: 5px;
+    margin-bottom: 5px;
+    margin-inline: 2px;
 }
 
 .verification-matrix {
-    padding: 10px;
+    padding: 8px;
+    background-color: var(--blanco);
+    border: 1px solid var(--morado);
     border-radius: 5px;
-    margin-top: 10px;
-    justify-self: center;
-    width: 250px;
+    text-align: center;
+    min-width: 40px;
+    padding: 5px;
 }
 
 /*Mensajes de error*/
